@@ -12,7 +12,7 @@ Requirements for this release:
  - make sure tha Asterisk Modules exist at /usr/include/asterisk ; if not run the following command :
  
 ```
-    cp -R /Path/to/asterisk-20/include/asterisk /usr/include 
+    cp -R /Path/to/asterisk-18/include/asterisk /usr/include 
 ```
 
 Once you've installed the software listed above, run these commands::
