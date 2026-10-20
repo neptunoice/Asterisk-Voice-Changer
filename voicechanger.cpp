@@ -1,7 +1,3 @@
-/*
- * Voice Changer for Asterisk 1.6+
- *
- */
 
 #include "voicechanger.h"
 
@@ -11,7 +7,9 @@ using soundtouch::SoundTouch;
 void *vc_soundtouch_create(int rate, float pitch)
 {
     SoundTouch *st;
+
     st = new SoundTouch();
+    
     if (st) {
         st->setChannels(1);
         st->setSampleRate(rate);
@@ -19,6 +17,7 @@ void *vc_soundtouch_create(int rate, float pitch)
         st->setSetting(SETTING_USE_QUICKSEEK, 1);
         st->setSetting(SETTING_USE_AA_FILTER, 1);
     }
+
     return st;
 }
 
@@ -35,6 +34,7 @@ static inline void slin_to_flin(float flin[],
                                 int samps)
 {
     int n;
+    
     for (n = 0; n < samps; n++) {
         flin[n] = (float)slin[n] / 32767.0;
     }
@@ -46,6 +46,7 @@ static inline void flin_to_slin(int16_t __restrict slin[],
                                 int samps)
 {
     int n;
+    
     for (n = 0; n < samps; n++) {
         slin[n] = (int16_t)(flin[n] * 32767.0);
     }
@@ -59,6 +60,7 @@ void vc_voice_change(void *st_, float *fbuf, int16_t *data,
 #if defined(INTEGER_SAMPLES) || defined(SOUNDTOUCH_INTEGER_SAMPLES)
 
     st->putSamples(data, samples);
+    
     if (st->numSamples() >= samples) {
         st->receiveSamplesEx(data, samples);
     } else {
@@ -68,7 +70,9 @@ void vc_voice_change(void *st_, float *fbuf, int16_t *data,
 #elif defined(FLOAT_SAMPLES) || defined(SOUNDTOUCH_FLOAT_SAMPLES)
 
     slin_to_flin(fbuf, data, samples);
+    
     st->putSamples(fbuf, samples);
+    
     if ((int)st->numSamples() >= samples) {
         st->receiveSamples(fbuf, samples);
         flin_to_slin(data, fbuf, samples);

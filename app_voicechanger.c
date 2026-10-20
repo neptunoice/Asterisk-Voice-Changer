@@ -1,7 +1,3 @@
-/*
- * Voice Changer for Asterisk 1.6+
- *
- */
 
 #define AST_MODULE "app_voicechanger"
 #define AST_MODULE_SELF_SYM __internal_my_module_self
