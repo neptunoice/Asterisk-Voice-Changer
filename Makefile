@@ -16,4 +16,4 @@ install: all
 	cp -av app_voicechanger.so /usr/lib/asterisk/modules/
 
 clean:
-	rm -f *.o *.so
+	rm -rf *.o *.so
